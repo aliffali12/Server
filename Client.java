@@ -1,40 +1,60 @@
 import java.io.*;
+
 import java.net.*;
+
+import java.net.Socket.*;
+
 
 public class Client {
 
     public static void main(String[] args) throws IOException {
 
-	final int PORT_NUMBER = 9002;
-	    
-    	final String HOSTNAME = "192.168.188.132";
+	String Words;
 
-    //Attempt to connect with Server
+	String NewWords;
 
-    try {
-	    
-        Socket s = new Socket(HOSTNAME, PORT_NUMBER);
-
-        PrintWriter out = new PrintWriter(s.getOutputStream(),true);
-	    
-        BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+    //When Sending to Server
+try{
+    
+	BufferedReader FromUser = new BufferedReader(new 
+InputStreamReader(System.in));
 
 
-	//Output to server after receive message
+        Socket s = new Socket("192.168.188.132", 9002);
 
-        out.println("\n\tHello and Welcome");
-        out.flush();
-	System.out.println("\nFrom server: " + in.readLine());
+        DataOutputStream ToServer = new
+	DataOutputStream(s.getOutputStream());
+ 
+
+	 BufferedReader FromServer = new BufferedReader(new 
+InputStreamReader(s.getInputStream()));
+	
+ 
+	Words = FromUser.readLine();
+	ToServer.writeBytes(Words);
+
+	NewWords = FromServer.readLine();
+	
+	//Output for server after receive message
+        
+	System.out.println("\nFrom server: " + NewWords);
+
 	System.out.println("\nTimed Out\n");
-        out.close();
-	in.close();
+	
+       //out.close();
+
+	//in.close();
+
         s.close();
+
 
     } catch(Exception e) {
 
         e.printStackTrace();
+
     }
-	    
+
     }
-	
+
+
 }
