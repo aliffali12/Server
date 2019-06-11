@@ -20,7 +20,7 @@ try{
 InputStreamReader(System.in));
 
 
-        Socket s = new Socket("192.168.188.132", 9002);
+        Socket s = new Socket("127.0.0.1", 5000);
 
         DataOutputStream ToServer = new
 	DataOutputStream(s.getOutputStream());
